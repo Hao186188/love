@@ -12,9 +12,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sparkle-overlay"></div>
-    <div id="theme-effect"></div>
-    <div id="private-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;">
+    <div id="qr-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(255,255,255,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;">
+      <div style="background:#fffbe9;padding:32px 24px;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,0.12);text-align:center;max-width:90vw;">
+        <h2 style="color:#e91e63;font-family:'Dancing Script',cursive;">🔗 Tạo mã QR & Link truy cập</h2>
+        <p style="margin-bottom:18px;color:#c84a7d;">Quét mã QR hoặc copy link để chia sẻ trang web này:</p>
+        <canvas id="qr-modal-canvas" style="margin-bottom:12px;"></canvas>
+        <br>
+        <input type="text" id="qr-modal-link" style="width:80%;padding:8px 12px;font-size:1em;border-radius:8px;border:1px solid #e91e63;outline:none;" readonly>
+        <br><br>
+        <button id="qr-modal-btn" style="padding:10px 28px;background:#e91e63;color:#fff;border:none;border-radius:8px;font-size:1.1em;cursor:pointer;">Tiếp tục</button>
+      </div>
+    </div>
+    <div id="private-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);z-index:9999;display:none;align-items:center;justify-content:center;">
       <div style="background:#fff;padding:32px 24px;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,0.18);text-align:center;max-width:90vw;">
         <h2 style="color:#e91e63;font-family:'Dancing Script',cursive;">🔒 Private Mode</h2>
         <p style="margin-bottom:18px;color:#c84a7d;">Vui lòng nhập mật khẩu để xem nội dung:</p>
@@ -24,22 +33,8 @@
         <p id="private-error" style="color:#d6336c;margin-top:12px;display:none;">Sai mật khẩu, thử lại nhé!</p>
       </div>
     </div>
-    <script>
-      // Private Mode
-      const PRIVATE_PASSWORD = 'yeubetun'; // Đổi mật khẩu tại đây
-      function unlockPrivate() {
-        const input = document.getElementById('private-password').value;
-        if (input === PRIVATE_PASSWORD) {
-          document.getElementById('private-modal').style.display = 'none';
-        } else {
-          document.getElementById('private-error').style.display = 'block';
-        }
-      }
-      document.getElementById('private-btn').onclick = unlockPrivate;
-      document.getElementById('private-password').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') unlockPrivate();
-      });
-    </script>
+    <div class="sparkle-overlay"></div>
+    <div id="theme-effect"></div>
     <script>
       // Tự động đổi theme theo thời gian trong ngày và hiệu ứng mặt trời/trăng/sao
       function setThemeByTime() {
@@ -160,11 +155,93 @@
         </div>
 
         <div class="memories-link">
+        <div style="text-align:center;margin:24px 0;">
+          <button id="heart-qr-btn" style="padding:12px 32px;background:#e91e63;color:#fff;border:none;border-radius:18px;font-size:1.15em;cursor:pointer;box-shadow:0 2px 12px rgba(233,30,99,0.12);font-family:'Dancing Script',cursive;">
+            Tạo mã QR hình trái tim
+          </button>
+        </div>
             <a href="album.html">Xem Album Ảnh Kỷ Niệm Của Chúng Ta</a>
         </div>
     </div>
 
     <script src="script.js"></script>
+    <div id="heart-qr-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(255,255,255,0.97);z-index:99999;display:none;align-items:center;justify-content:center;">
+      <div style="background:#fffbe9;padding:32px 24px;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,0.12);text-align:center;max-width:90vw;position:relative;">
+        <h2 style="color:#e91e63;font-family:'Dancing Script',cursive;">❤️ Mã QR Trái Tim</h2>
+        <p style="margin-bottom:18px;color:#c84a7d;">Quét mã QR để truy cập trang web:</p>
+        <div style="position:relative;display:inline-block;">
+          <canvas id="heart-qr-canvas" width="200" height="200" style="margin-bottom:12px;"></canvas>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Iconic_image_of_a_heart.svg/1200px-Iconic_image_of_a_heart.svg.png" style="position:absolute;left:50%;top:50%;width:48px;height:48px;transform:translate(-50%,-50%);pointer-events:none;" alt="heart">
+        </div>
+        <br>
+        <input type="text" value="https://hao186188.github.io/love/index.html" style="width:80%;padding:8px 12px;font-size:1em;border-radius:8px;border:1px solid #e91e63;outline:none;margin-top:8px;" readonly>
+        <br><br>
+        <button id="heart-qr-close" style="padding:10px 28px;background:#e91e63;color:#fff;border:none;border-radius:8px;font-size:1.1em;cursor:pointer;">Đóng</button>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+      // Nút tạo mã QR hình trái tim
+      document.getElementById('heart-qr-btn').onclick = function() {
+        document.getElementById('heart-qr-modal').style.display = 'flex';
+        var qr = new QRious({
+          element: document.getElementById('heart-qr-canvas'),
+          value: 'https://hao186188.github.io/love/index.html',
+          size: 200,
+          background: '#fffbe9',
+          foreground: '#e91e63'
+        });
+      };
+      document.getElementById('heart-qr-close').onclick = function() {
+        document.getElementById('heart-qr-modal').style.display = 'none';
+      };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+      // Modal QR & Link
+      document.addEventListener('DOMContentLoaded', function() {
+        var url = window.location.href;
+        var qr = new QRious({
+          element: document.getElementById('qr-modal-canvas'),
+          value: url,
+          size: 180,
+          background: '#fffbe9',
+          foreground: '#e91e63'
+        });
+        document.getElementById('qr-modal-link').value = url;
+        document.getElementById('qr-modal-btn').onclick = function() {
+          document.getElementById('qr-modal').style.display = 'none';
+          document.getElementById('private-modal').style.display = 'flex';
+        };
+      });
+    </script>
+    <script>
+      // Private Mode - Tạo mật khẩu lần đầu
+      let PRIVATE_PASSWORD = null;
+      function createPassword() {
+        const input = document.getElementById('private-password').value;
+        if (!PRIVATE_PASSWORD) {
+          if (input.length < 4) {
+            document.getElementById('private-error').textContent = 'Mật khẩu phải từ 4 ký tự trở lên!';
+            document.getElementById('private-error').style.display = 'block';
+            return;
+          }
+          PRIVATE_PASSWORD = input;
+          document.getElementById('private-modal').style.display = 'none';
+        } else {
+          if (input === PRIVATE_PASSWORD) {
+            document.getElementById('private-modal').style.display = 'none';
+          } else {
+            document.getElementById('private-error').textContent = 'Sai mật khẩu, thử lại nhé!';
+            document.getElementById('private-error').style.display = 'block';
+          }
+        }
+      }
+      document.getElementById('private-btn').onclick = createPassword;
+      document.getElementById('private-password').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') createPassword();
+      });
+    </script>
     <script src="avatar-info.js"></script>
     <script>
       // Đếm ngược đến sinh nhật
