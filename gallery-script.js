@@ -1,3 +1,30 @@
+// Xử lý upload và hiển thị ảnh mới
+document.addEventListener('DOMContentLoaded', function() {
+  const uploadInput = document.getElementById('gallery-upload');
+  const galleryContainer = document.querySelector('.gallery-container');
+  if (uploadInput) {
+    uploadInput.addEventListener('change', function(e) {
+      const files = Array.from(e.target.files);
+      files.forEach(file => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            const img = document.createElement('img');
+            img.src = evt.target.result;
+            img.className = 'gallery-img';
+            img.style.maxWidth = '120px';
+            img.style.margin = '8px';
+            img.style.borderRadius = '12px';
+            img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+            galleryContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      uploadInput.value = '';
+    });
+  }
+});
 document.addEventListener('DOMContentLoaded', function() {
   const galleryContainer = document.querySelector('.gallery-container');
   // Danh sách ảnh
