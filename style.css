@@ -1,0 +1,327 @@
+.day-theme {
+  background: linear-gradient(135deg, #fffbe9 0%, #fff9c4 60%, #ffe082 100%);
+  color: #c84a7d;
+}
+.day-theme .sun {
+  position: fixed;
+  top: 40px;
+  right: 60px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #ffe082 60%, #fffde7 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 60px 20px #ffe082;
+  z-index: 2;
+  animation: sunMove 8s linear infinite alternate;
+}
+@keyframes sunMove {
+  0% { top: 40px; right: 60px; }
+  100% { top: 80px; right: 120px; }
+}
+.night-theme {
+  background: linear-gradient(135deg, #6a4fc2 0%, #2d1b4c 100%);
+  color: #f7b267;
+}
+.night-theme .moon {
+  position: fixed;
+  top: 50px;
+  right: 60px;
+  width: 60px;
+  height: 60px;
+  background: #fffde7;
+  border-radius: 50%;
+  box-shadow: -15px 0 0 0 #6a4fc2;
+  z-index: 2;
+}
+.night-theme .stars {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+.night-theme .star {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+.night-theme .birthday-countdown,
+.night-theme .avatar-container {
+  background: #232946 !important;
+  color: #f7b267 !important;
+  box-shadow: 0 1px 6px rgba(247, 178, 103, 0.07);
+}
+.night-theme .birthday-countdown span {
+  color: #f7b267 !important;
+}
+.birthday-countdown {
+  margin: 8px 0 0 0;
+  padding: 6px 12px;
+  background: #fff0f6;
+  border-radius: 10px;
+  font-size: 1.05em;
+  color: #e91e63;
+  box-shadow: 0 1px 6px rgba(233, 30, 99, 0.07);
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.birthday-countdown span {
+  font-weight: bold;
+  color: #d6336c;
+}
+.avatar-container {
+  background: #fff8fa;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(233, 30, 99, 0.08);
+  padding: 18px 16px 16px 16px;
+  margin: 0 12px;
+  display: inline-block;
+  vertical-align: top;
+  min-width: 180px;
+  max-width: 220px;
+}
+.nickname, .birthday {
+  font-size: 1em;
+  color: #e91e63;
+  margin: 4px 0 0 0;
+  font-family: 'Poppins', sans-serif;
+}
+.milestones {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  font-size: 0.95em;
+  color: #c84a7d;
+}
+.milestones li {
+  margin-bottom: 2px;
+  padding-left: 0;
+}
+.future-events {
+  margin-top: 10px;
+  background: #fff0f6;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.95em;
+  color: #d6336c;
+  box-shadow: 0 1px 6px rgba(233, 30, 99, 0.07);
+}
+.future-events h4 {
+  margin: 0 0 6px 0;
+  font-size: 1em;
+  color: #e91e63;
+}
+.future-events ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.future-events li {
+  margin-bottom: 2px;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fde7f0 0%, #f8c8dc 100%);
+    overflow-x: hidden;
+    color: #5c3e4a;
+}
+
+.love-counter-container {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 40px 50px;
+    border-radius: 25px;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(220, 150, 180, 0.37);
+    text-align: center;
+    z-index: 1;
+    max-width: 520px;
+    width: 90%;
+    transition: all 0.3s ease;
+}
+
+.main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5em;
+    color: #e75480;
+    margin-bottom: 20px;
+}
+
+.love-message {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 30px 0;
+    color: #7d5a6a;
+    font-style: italic;
+}
+
+.couple-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* CSS ĐÃ THÊM để sửa lỗi hiển thị tên */
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #e75480;
+    box-shadow: 0 0 20px rgba(231, 84, 128, 0.5);
+    transition: transform 0.4s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.08);
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #7d5a6a;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.heart {
+    font-size: 3.2em;
+    color: #e75480;
+    margin: 0 25px;
+    align-self: flex-start; /* Giúp trái tim căn thẳng hàng với avatar */
+    margin-top: 20px;     /* Đẩy trái tim xuống một chút cho cân đối */
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.day-counter {
+    margin: 20px 0;
+}
+
+.time-display {
+    display: flex;
+    justify-content: center;
+}
+
+.time-box {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.time-box span#love-days {
+    font-size: 5rem;
+    font-weight: 700;
+    background: -webkit-linear-gradient(45deg, #d9437a, #b82e66);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+}
+
+.time-box p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.7rem;
+    color: #b82e66;
+    margin: 5px 0 0;
+}
+
+.time-box span.time-small {
+    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    color: #b82e66;
+    display: block;
+    margin-top: 5px;
+}
+
+.memories-link a {
+    display: inline-block;
+    padding: 14px 35px;
+    background: #e75480;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(231, 84, 128, 0.4);
+}
+
+.memories-link a:hover {
+    background-color: #c8416d;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(231, 84, 128, 0.6);
+}
+
+/* --- Responsive cho điện thoại --- */
+@media (max-width: 600px) {
+    .love-counter-container {
+        padding: 30px 20px;
+        margin: 20px 0;
+    }
+    
+    .main-title {
+        font-size: 2em;
+    }
+
+    .avatar {
+        width: 85px;
+        height: 85px;
+    }
+    
+    .heart {
+        font-size: 2.8em;
+        margin: 0 15px;
+    }
+
+    .time-box span#love-days {
+        font-size: 4rem;
+    }
+
+    .time-box p {
+        font-size: 1.4rem;
+    }
+
+    .time-box span.time-small {
+        font-size: 1rem;
+    }
+
+    .name {
+        font-size: 1.1rem;
+    }
+
+    .love-message {
+        font-size: 1em;
+        margin: 25px 0;
+    }
+    
+    .memories-link a {
+        padding: 12px 30px;
+    }
+}
+

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm Ngày Yêu</title>
+    <link rel="icon" type="image/x-icon" href="img/tui.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sparkle-overlay"></div>
+    <div id="theme-effect"></div>
+    <div id="private-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;">
+      <div style="background:#fff;padding:32px 24px;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,0.18);text-align:center;max-width:90vw;">
+        <h2 style="color:#e91e63;font-family:'Dancing Script',cursive;">🔒 Private Mode</h2>
+        <p style="margin-bottom:18px;color:#c84a7d;">Vui lòng nhập mật khẩu để xem nội dung:</p>
+        <input type="password" id="private-password" style="padding:8px 16px;font-size:1.1em;border-radius:8px;border:1px solid #e91e63;outline:none;">
+        <br><br>
+        <button id="private-btn" style="padding:10px 28px;background:#e91e63;color:#fff;border:none;border-radius:8px;font-size:1.1em;cursor:pointer;">Mở khóa</button>
+        <p id="private-error" style="color:#d6336c;margin-top:12px;display:none;">Sai mật khẩu, thử lại nhé!</p>
+      </div>
+    </div>
+    <script>
+      // Private Mode
+      const PRIVATE_PASSWORD = 'yeubetun'; // Đổi mật khẩu tại đây
+      function unlockPrivate() {
+        const input = document.getElementById('private-password').value;
+        if (input === PRIVATE_PASSWORD) {
+          document.getElementById('private-modal').style.display = 'none';
+        } else {
+          document.getElementById('private-error').style.display = 'block';
+        }
+      }
+      document.getElementById('private-btn').onclick = unlockPrivate;
+      document.getElementById('private-password').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') unlockPrivate();
+      });
+    </script>
+    <script>
+      // Tự động đổi theme theo thời gian trong ngày và hiệu ứng mặt trời/trăng/sao
+      function setThemeByTime() {
+        var hour = new Date().getHours();
+        var body = document.body;
+        var themeEffect = document.getElementById('theme-effect');
+        themeEffect.innerHTML = '';
+        if (hour >= 6 && hour < 18) {
+          body.classList.add('day-theme');
+          body.classList.remove('night-theme');
+          themeEffect.innerHTML = '<div class="sun"></div>';
+        } else {
+          body.classList.add('night-theme');
+          body.classList.remove('day-theme');
+          themeEffect.innerHTML = '<div class="moon"></div><div class="stars"></div>';
+          // Tạo sao động
+          var stars = themeEffect.querySelector('.stars');
+          for (var i = 0; i < 60; i++) {
+            var star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+            stars.appendChild(star);
+          }
+        }
+      }
+      setThemeByTime();
+      setInterval(setThemeByTime, 60000);
+    </script>
+    <script>
+      // Tự động đổi theme theo thời gian trong ngày
+      function setThemeByTime() {
+        var hour = new Date().getHours();
+        var body = document.body;
+        if (hour >= 6 && hour < 18) {
+          body.classList.add('day-theme');
+          body.classList.remove('night-theme');
+        } else {
+          body.classList.add('night-theme');
+          body.classList.remove('day-theme');
+        }
+      }
+      setThemeByTime();
+      setInterval(setThemeByTime, 60000);
+    </script>
+
+    <div class="love-counter-container">
+        <h1 class="main-title">Chúng Ta Đã Bên Nhau</h1>
+
+        <div class="couple-display">
+    <div class="avatar-container">
+        <div class="avatar">
+            <img src="img/1.jpg" alt="Ảnh Nam">
+        </div>
+        <p class="name" id="name-male">Nhật Hào</p>
+        <p class="nickname">Biệt danh: Heo</p>
+        <p class="birthday">Sinh nhật: 18/06/2007</p>
+        <div class="birthday-countdown">Đếm ngược đến sinh nhật: <span id="countdown-birthday-hao"></span></div>
+        <ul class="milestones">
+          <li>Ngỏ Lời: 07/02/2025</li>
+          <li>Gặp Nhau: 14/02/2025</li>
+          <li>Kỷ niệm 100 ngày: 18/06/2025</li>
+        </ul>
+    </div>
+
+    <div class="heart">❤️</div>
+
+    <div class="avatar-container">
+        <div class="avatar">
+            <img src="img/5.jpg" alt="Ảnh Nữ">
+        </div>
+        <p class="name" id="name-female">Ngọc Hà</p>
+        <p class="nickname">Biệt danh: Bé Tũn</p>
+        <p class="birthday">Sinh nhật: 18/08/2009</p>
+        <div class="birthday-countdown">Đếm ngược đến sinh nhật: <span id="countdown-birthday"></span></div>
+        <style>
+          .birthday-countdown {
+            margin: 8px 0 0 0;
+            padding: 6px 12px;
+            background: #fff0f6;
+            border-radius: 10px;
+            font-size: 1.05em;
+            color: #e91e63;
+            box-shadow: 0 1px 6px rgba(233, 30, 99, 0.07);
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+          }
+          .birthday-countdown span {
+            font-weight: bold;
+            color: #d6336c;
+          }
+        </style>
+        <ul class="milestones">
+          <li>Ngỏ Lời: 07/02/2025</li>
+          <li>Gặp Nhau: 14/02/2025</li>
+          <li>Kỷ niệm 100 ngày: 18/06/2025</li>
+        </ul>
+    </div>
+</div>
+
+
+        <div class="day-counter">
+            <div class="time-display">
+                <div class="time-box">
+                    <span id="love-days">...</span>
+                    <p>Ngày</p>
+                    <span id="love-hours" class="time-small">...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="love-message">
+            <p>"Yêu Cậu Yêu Cả Một Đời<br>Thương Cậu Thương Cả Một Đời Thanh Xuân"</p>
+        </div>
+
+        <div class="memories-link">
+            <a href="album.html">Xem Album Ảnh Kỷ Niệm Của Chúng Ta</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="avatar-info.js"></script>
+    <script>
+      // Đếm ngược đến sinh nhật
+      function getNextBirthday(month, day) {
+        const now = new Date();
+        let year = now.getFullYear();
+        let birthday = new Date(year, month - 1, day);
+        if (birthday < now) birthday = new Date(year + 1, month - 1, day);
+        return birthday;
+      }
+      function updateBirthdayCountdown(id, month, day) {
+        const birthday = getNextBirthday(month, day);
+        const now = new Date();
+        const diff = birthday - now;
+        if (diff > 0) {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+          document.getElementById(id).textContent = `${days} ngày, ${hours} giờ, ${minutes} phút, ${seconds} giây`;
+        } else {
+          document.getElementById(id).textContent = 'Đã đến!';
+        }
+      }
+      function updateAllBirthdays() {
+        updateBirthdayCountdown('countdown-birthday', 8, 18); // Ngọc Hà
+        updateBirthdayCountdown('countdown-birthday-hao', 6, 18); // Nhật Hào
+      }
+      updateAllBirthdays();
+      setInterval(updateAllBirthdays, 1000);
+    </script>
+</body>
+</html>
