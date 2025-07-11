@@ -1,3 +1,28 @@
+@media (max-width: 600px) {
+  .main-content {
+    padding: 0 2vw;
+  }
+  .gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .gallery-img {
+    max-width: 44vw !important;
+    height: auto;
+    margin: 6px;
+    border-radius: 10px;
+  }
+  label[for="gallery-upload"] {
+    font-size: 1.15em;
+    padding: 12px 0;
+    width: 90vw;
+    max-width: 320px;
+    margin: 8px auto;
+    display: block;
+  }
+}
 body {
   background: #fffbe9;
   font-family: 'Quicksand', sans-serif;
